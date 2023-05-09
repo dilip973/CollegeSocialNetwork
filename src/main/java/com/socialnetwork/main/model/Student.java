@@ -1,72 +1,47 @@
 package com.socialnetwork.main.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "students")
 public class Student {
-    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @Column(nullable = false)
+    private int id;
     private String name;
-    
-    @Column(nullable = false, unique = true)
-    private String email;
-    
-    @Column(nullable = false)
-    private String password;
-
-	public Student(Long id, String name, String email, String password) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.password = password;
-	}
-
-	public Long getId() {
+    private String department;
+    private int backlogs;
+    private double percentage;
+	public int getId() {
 		return id;
 	}
-
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public String getEmail() {
-		return email;
+	public String getDepartment() {
+		return department;
 	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setDepartment(String department) {
+		this.department = department;
 	}
-
-	public String getPassword() {
-		return password;
+	public int getBacklogs() {
+		return backlogs;
 	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	public void setBacklogs(int backlogs) {
+		this.backlogs = backlogs;
 	}
-
-	@Override
-	public String toString() {
-		return "Student [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + "]";
+	public double getPercentage() {
+		return percentage;
+	}
+	public void setPercentage(double percentage) {
+		this.percentage = percentage;
 	}
     
 }
