@@ -13,7 +13,9 @@ const Navbar = () => {
       <NavLink className="nav-item nav-link" activeClassName="active" to="/login" style={{ color: '#333', marginRight: '10px' }}>Login</NavLink>
       <NavLink className="nav-item nav-link"  to="/register" style={{ color: '#333', marginRight: '10px' }}>Register</NavLink>
       <NavLink className="nav-item nav-link"  to="/newsfeed" style={{ color: '#333', marginRight: '10px' }}>Newsfeed</NavLink>
+      <NavLink className="nav-item nav-link"  to="/dashboard" style={{ color: '#333', marginRight: '10px' }}>Dashboard</NavLink>
       <NavLink className="nav-item nav-link"  to="/profile/:id" style={{ color: '#333', marginRight: '10px' }}>Profile</NavLink>
+      <NavLink className="nav-item nav-link"  to="/post" style={{ color: '#333', marginRight: '10px' }}>Post</NavLink>
     </div>
     <form className="d-flex" style={{ marginLeft: 'auto' }}>
       <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" style={{ width: '200px', marginRight: '10px' }} />

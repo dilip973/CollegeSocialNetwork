@@ -8,6 +8,8 @@ import Profile from "./Components/Profile";
 import NewsFeed from "./Components/NewsFeed";
 import Home from "./Components/Home";
 import Registration from "./Components/Registration";
+import AdminDashboard from "./Components/Dashboard/AdminDashboard";
+import PostForm from "./Components/Post/PostForm";
 
 
 function App() {
@@ -21,7 +23,8 @@ function App() {
           <Route exact path="/register" element={<Registration/>} />
           <Route exact path="/newsfeed" element={<NewsFeed/>} />
           <Route exact path="/profile/:id" element={<Profile/>} />
-          {/* <Route exact path="/dashboard" element={<Dashboard/>} /> */}
+          <Route exact path="/dashboard" element={<AdminDashboard/>} />
+          <Route exact path="/post" element={<PostForm/>} />
         </Routes>
       </BrowserRouter>
     </>
