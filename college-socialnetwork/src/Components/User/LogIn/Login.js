@@ -63,14 +63,13 @@ const Login = () => {
                                
                                 <select
                                   className="form-select"
-                                  name="designation"
-                                  id="designation"
+                                  name="userType"
+                                  id="userType"
                                 >
-                                  <option value="">Select Designation</option>
+                                  <option value="">UserType</option>
                                   <option value="STUDENT">STUDENT</option>
                                   <option value="FACULTY">FACULTY</option>
                                   <option value="PO">PLACEMENT OFFICER</option>
-                                  <option value="ADMIN">ADMIN</option>
                                 </select>
                               </div>
                               <div className="text-center pt-3">

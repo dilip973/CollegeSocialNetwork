@@ -19,8 +19,9 @@ public class RegistrationController {
     private RegisteredTryRepository registeredTryRepository;
  
     @PostMapping
-    public void registerUser(@RequestBody RegisteredTry registeredTry) {
+    public String registerUser(@RequestBody RegisteredTry registeredTry) {
         registeredTryRepository.save(registeredTry);
+        return "login succesfully";
     }
  
 }
