@@ -1,0 +1,225 @@
+/* Global styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  /* Container */
+  .college-social-network-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  /* Header */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #3b5998;
+    color: white;
+  }
+  
+  header h1 {
+    font-size: 2rem;
+  }
+  
+  nav ul {
+    display: flex;
+    list-style: none;
+  }
+  
+  nav ul li {
+    margin-left: 2rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  /* Main content */
+  main {
+    display: flex;
+    flex: 1;
+    margin: 2rem 0;
+  }
+  
+  /* Sidebar */
+  aside {
+    width: 25%;
+    padding: 0 2rem;
+  }
+  
+  /* Profile section */
+  .profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .profile-section img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+  }
+  
+  .profile-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .profile-section p {
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  /* Chat section */
+  .chat-section {
+    background-color: #f5f5f5;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 2rem;
+  }
+  
+  .chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .chat-header h3 {
+    font-size: 1.2rem;
+  }
+  
+  .chat-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .chat-list img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 1rem;
+  }
+  
+  .chat-list h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .chat-list p {
+    font-size: 0.8rem;
+    color: gray;
+  }
+  
+  /* Newsfeed section */
+  .newsfeed-section {
+    width: 75%;
+    padding: 0 2rem;
+  }
+  
+  /* Create post */
+  .create-post {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .create-post textarea {
+    flex: 1;
+    padding: 1rem;
+    border: radius 5px;}
+/* Create post button */
+.create-post button {
+    background-color: #3b5998;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-left: 1rem;
+    cursor: pointer;
+  }
+  
+  .create-post button:hover {
+    opacity: 0.8;
+  }
+  
+  /* Newsfeed post */
+  .post {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 2rem;
+  }
+  
+  .post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .post-header img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 1rem;
+  }
+  
+  .post-header h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .post-header p {
+    font-size: 0.8rem;
+    color: gray;
+  }
+  
+  .post-content {
+    margin-bottom: 1rem;
+  }
+  
+  .post-content img {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .post-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .post-actions button {
+    background-color: #3b5998;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .post-actions button:hover {
+    opacity: 0.8;
+  }
+  
+  /* Footer */
+  footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5rem;
+    background-color: #3b5998;
+    color: white;
+  }
+    

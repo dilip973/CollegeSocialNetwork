@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './PostForm.css';
 
-function PostForm() {
+const PostForm=() => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
