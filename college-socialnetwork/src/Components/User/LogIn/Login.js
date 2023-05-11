@@ -1,12 +1,29 @@
 import React, { useState } from "react";
 import "./style.css";
-import img from "../../Resources/login_image.jpg"
+import img from "../../Resources/login_image.jpg";
+
+import axios from "axios";
 
 const Login = () => {
-  const [isCreatNewClicked, setisCreatNewClicked] = useState(false)
-  const createNewButtonHandler =()=>{
-    setisCreatNewClicked(true)
-  }
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios.post("/login", {
+        username: username,
+        password: password,
+        role: role,
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <>
       <div className="login_container">
@@ -38,7 +55,7 @@ const Login = () => {
                               </h3>
                             </div>
                             &nbsp;
-                            <form>
+                            <form onSubmit={handleSubmit}>
                               <div className="form-group d-flex align-items-center">
                                 <span className="far fa-user me-3"></span>
                                 <input
@@ -47,8 +64,13 @@ const Login = () => {
                                   name="userName"
                                   id="userName"
                                   placeholder="Username"
+                                  value={username}
+                                  onChange={(event) =>
+                                    setUsername(event.target.value)
+                                  }
                                 />
-                              </div>&nbsp;
+                              </div>
+                              &nbsp;
                               <div className="form-group d-flex align-items-center">
                                 <span className="far fa-lock me-3"></span>
                                 <input
@@ -57,28 +79,38 @@ const Login = () => {
                                   name="password"
                                   id="password"
                                   placeholder="Password"
+                                  value={password}
+                                  onChange={(event) =>
+                                    setPassword(event.target.value)
+                                  }
                                 />
-                              </div>&nbsp;
+                              </div>
+                              &nbsp;
                               <div className="form-group">
-                               
                                 <select
                                   className="form-select"
                                   name="userType"
                                   id="userType"
+                                  value={role}
+                                  onChange={(event) =>
+                                    setRole(event.target.value)
+                                  }
                                 >
                                   <option value="">UserType</option>
                                   <option value="STUDENT">STUDENT</option>
                                   <option value="FACULTY">FACULTY</option>
+                                  <option value="STAFF">STAFF</option>
                                   <option value="PO">PLACEMENT OFFICER</option>
                                 </select>
                               </div>
                               <div className="text-center pt-3">
                                 <button
                                   className="btn btn-primary btn-block gradient-custom-2"
-                                  type="button"
+                                  type="submit"
                                 >
                                   Log in
                                 </button>
+
                                 <div className="my-3">
                                   <a href="#!" className="text-muted">
                                     Forgot password?
@@ -86,21 +118,29 @@ const Login = () => {
                                 </div>
                                 <div className="d-flex justify-content-center">
                                   <p className="me-2">Don't have an account?</p>
-                                  <button
+                                  {/* <button
                                     className="btn btn-outline-danger"
                                     type="button"
-                                  >
-                                    Create new
-                                  </button>
+                                    href="/register"> REGISTER NOW
+                                  </button> */}
+                                  <span>
+                                    {" "}
+                                    <a href="/register">REGISTER NOW</a>
+                                  </span>
                                 </div>
                               </div>
                             </form>
                           </div>
                         </div>
-                        <div className="col-lg-6 d-flex align-items-center justify-content-center gradient-custom-2" style={
-                            {marginTop:'10px', height:'500px', width:'450px'}
-                            }>
-                            <img src={img} alt="img not found"/>
+                        <div
+                          className="col-lg-6 d-flex align-items-center justify-content-center gradient-custom-2"
+                          style={{
+                            marginTop: "10px",
+                            height: "500px",
+                            width: "450px",
+                          }}
+                        >
+                          <img src={img} alt="img not found" />
                         </div>
                       </div>
                     </div>

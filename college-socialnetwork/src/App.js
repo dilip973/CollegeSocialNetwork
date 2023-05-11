@@ -6,10 +6,11 @@ import SignUp from "./Components/User/SignUp/index";
 import Navbar from "./Components/Navbar";
 import Profile from "./Components/Profile";
 import NewsFeed from "./Components/NewsFeed";
-import Home from "./Components/Home";
 import Registration from "./Components/Registration";
 import AdminDashboard from "./Components/Dashboard/AdminDashboard";
 import PostForm from "./Components/Post/PostForm";
+import Chat from "./Components/Chat/Chat";
+import Home from "./Components/HomePage/Home";
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route exact path="/profile/:id" element={<Profile/>} />
           <Route exact path="/dashboard" element={<AdminDashboard/>} />
           <Route exact path="/post" element={<PostForm/>} />
+          <Route exact path="/chat" element={<Chat/>} />
         </Routes>
       </BrowserRouter>
     </>
