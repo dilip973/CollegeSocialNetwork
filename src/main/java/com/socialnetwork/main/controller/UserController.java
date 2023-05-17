@@ -37,7 +37,7 @@ public class UserController {
         User uDB = userRepository.findByEmailId(user.getEmailId());
         Message m = new Message();
 
-        if(uDB != null) {
+        if (uDB != null) {
             m.setMsg("Email already registered");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(m);
         }
@@ -53,31 +53,26 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody User user, HttpSession session, HttpServletResponse response) {
-        
-    	User uDB = userRepository.findByEmailId(user.getEmailId());
+
+        User uDB = userRepository.findByEmailId(user.getEmailId());
         Message m = new Message();
 
         if (uDB != null && passwordEncoder.matches(user.getPassword(), uDB.getPassword())) {
             session.setAttribute("loggedInUser", uDB);
-            Cookie sessionCookie = new Cookie("JSESSIONID", session.getId());
-            sessionCookie.setPath("/");
-            sessionCookie.setHttpOnly(true);
-            sessionCookie.setMaxAge(7 * 24 * 60 * 60); // set to 7 days
-            response.addCookie(sessionCookie);
+           
             return ResponseEntity.status(HttpStatus.OK).body(uDB);
         } else {
             m.setMsg("Invalid email or password.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(m);
         }
-        
     }
 
     @PostMapping("/logout")
     public ResponseEntity<Object> logout(HttpServletRequest request, HttpServletResponse response) {
-        // Invalidate the session
-        request.getSession().invalidate();
+        HttpSession session = request.getSession();
+        session.removeAttribute("loggedInUser");
+        session.invalidate();
 
-        // Clear cookies if necessary
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
@@ -92,11 +87,10 @@ public class UserController {
         return ResponseEntity.ok(message);
     }
 
-    
     @GetMapping("/login")
-	public User login(Principal principal) { //it tells us currently loggedIn username
-		//if u come to this line, it means that username and password given are valid
-		User user  = userRepository.getUserByEmailId(principal.getName());
-		return user;
-	}
+    public User login(Principal principal) {
+        User user = userRepository.getUserByEmailId(principal.getName());
+        return user;
+    }
 }
+

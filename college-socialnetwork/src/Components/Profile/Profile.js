@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Profile.css';
-import Navbar from '../Navbar';
-import { useNavigate } from 'react-router-dom';
 
 
 function Profile() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate=useNavigate();
 
   useEffect(() => {
     axios.get('http://localhost:8080/api/user/login', { withCredentials: true })
@@ -26,7 +23,6 @@ function Profile() {
   }, []);
 
   const handleLogout = () => {
-    navigate("/")
     axios.post('http://localhost:8080/api/user/logout')
       .then(response => {
         setUser(null);
