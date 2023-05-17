@@ -2,10 +2,10 @@ package com.socialnetwork.main.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.socialnetwork.main.model.Posts;
+import com.socialnetwork.main.model.Post;
 
 
-public interface PostsRepository extends JpaRepository<Posts, Long> {
+public interface PostRepository extends JpaRepository<Post, Long> {
 }
 
 

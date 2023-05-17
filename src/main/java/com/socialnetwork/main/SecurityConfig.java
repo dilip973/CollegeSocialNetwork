@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.socialnetwork.main.service.UserService;
 
 @Configuration
+@EnableWebSecurity
+@EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Autowired
@@ -28,12 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		//I will define API URLS that need security
 		http.authorizeRequests()
 		.antMatchers(HttpMethod.GET,"/api/user/login").authenticated()
-		.antMatchers(HttpMethod.GET, "/api/reader/allreaders").hasAnyAuthority("READER")
 		.anyRequest().permitAll()
 		.and().httpBasic()
 		.and().csrf().disable();
 	}
-
+    
 	private DaoAuthenticationProvider getAuthProvider(){
 		// I will take spring to my DB for loading the users. 
 		DaoAuthenticationProvider dao = new DaoAuthenticationProvider();
@@ -52,4 +55,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		return encoder; 
 	}
 }
-

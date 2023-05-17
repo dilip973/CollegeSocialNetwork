@@ -1,37 +1,85 @@
-import React, { useState } from 'react';
-import './PostForm.css';
+import React, { useState } from "react";
+import axios from "axios";
 
-const PostForm=() => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+const PostForm = () => {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [imageData, setImageData] = useState(null);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Send the post data to the server using fetch or axios
-    console.log({title, description, imageUrl});
-  }
+
+    try {
+      const formData = new FormData();
+
+      formData.append("title", title);
+      formData.append("content", content);
+      formData.append("image", imageData);
+
+      const response = await axios.post(
+        "http://localhost:8080/posts/create",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      console.log("Success:", response.data);
+
+      // Reset the form fields
+      setTitle("");
+      setContent("");
+      setImageData(null);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    setImageData(file);
+  };
 
   return (
     <div className="post-form-container">
-      <h2>Create a new post</h2>
+      <h2>Create a New Post</h2>
       <form onSubmit={handleSubmit}>
-        <label>
-          Title:
-          <input type="text" value={title} onChange={(event) => setTitle(event.target.value)} />
-        </label>
-        <label>
-          Description:
-          <textarea value={description} onChange={(event) => setDescription(event.target.value)} />
-        </label>
-        <label>
-          Image URL:
-          <input type="text" value={imageUrl} onChange={(event) => setImageUrl(event.target.value)} />
-        </label>
-        <button type="submit">Submit</button>
+        <div className="form-group">
+          <label htmlFor="title">Title:</label>
+          <input
+            id="title"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="form-input"
+          />
+        </div>
+        <div className="form-group">
+          {/* <label htmlFor="content">Content:</label> */}
+          <textarea
+            id="content"
+            placeholder="What's on your mind"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            className="form-input"
+          ></textarea>
+        </div>
+        <div className="form-group">
+          <label htmlFor="image">Upload Image:</label>
+          <input
+            id="image"
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            className="form-input"
+          />
+        </div>
+        <button type="submit" className="submit-btn">Submit</button>
       </form>
     </div>
   );
-}
+};
 
 export default PostForm;

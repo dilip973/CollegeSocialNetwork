@@ -3,28 +3,44 @@ import "./style.css";
 import img from "../../Resources/login_image.jpg";
 
 import axios from "axios";
+import Home from "../../HomePage/Home";
+
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [emailId, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // added state variable
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    axios.post("/login", {
-        username: username,
-        password: password,
-        role: role,
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   };
 
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:8080/api/user/login", {
+       emailId,
+        password,
+      });
+      console.log(response.data);
+      setIsLoggedIn(true); // set isLoggedIn to true on successful login
+    } catch (error) {
+      setErrorMessage(error.response.data.msg);
+    }
+  };
+
+  // if user is already logged in, redirect to Home component
+  if (isLoggedIn) {
+    return <Home />;
+  }
+
   return (
+   
     <>
       <div className="login_container">
         <div className="wrapper">
@@ -57,17 +73,16 @@ const Login = () => {
                             &nbsp;
                             <form onSubmit={handleSubmit}>
                               <div className="form-group d-flex align-items-center">
-                                <span className="far fa-user me-3"></span>
+                                <span className="far fa-envelope me-3"></span>
                                 <input
-                                  type="text"
+                                  type="email"
                                   className="form-control"
-                                  name="userName"
-                                  id="userName"
-                                  placeholder="Username"
-                                  value={username}
-                                  onChange={(event) =>
-                                    setUsername(event.target.value)
-                                  }
+                                  name="emailId"
+                                  id="emailId"
+                                  placeholder="Email address"
+                                  value={emailId}
+                                  onChange={handleEmailChange}
+                                  required
                                 />
                               </div>
                               &nbsp;
@@ -80,29 +95,11 @@ const Login = () => {
                                   id="password"
                                   placeholder="Password"
                                   value={password}
-                                  onChange={(event) =>
-                                    setPassword(event.target.value)
-                                  }
+                                  onChange={handlePasswordChange}
+                                  required
                                 />
                               </div>
                               &nbsp;
-                              <div className="form-group">
-                                <select
-                                  className="form-select"
-                                  name="userType"
-                                  id="userType"
-                                  value={role}
-                                  onChange={(event) =>
-                                    setRole(event.target.value)
-                                  }
-                                >
-                                  <option value="">UserType</option>
-                                  <option value="STUDENT">STUDENT</option>
-                                  <option value="FACULTY">FACULTY</option>
-                                  <option value="STAFF">STAFF</option>
-                                  <option value="PO">PLACEMENT OFFICER</option>
-                                </select>
-                              </div>
                               <div className="text-center pt-3">
                                 <button
                                   className="btn btn-primary btn-block gradient-custom-2"
@@ -110,7 +107,6 @@ const Login = () => {
                                 >
                                   Log in
                                 </button>
-
                                 <div className="my-3">
                                   <a href="#!" className="text-muted">
                                     Forgot password?
@@ -118,11 +114,6 @@ const Login = () => {
                                 </div>
                                 <div className="d-flex justify-content-center">
                                   <p className="me-2">Don't have an account?</p>
-                                  {/* <button
-                                    className="btn btn-outline-danger"
-                                    type="button"
-                                    href="/register"> REGISTER NOW
-                                  </button> */}
                                   <span>
                                     {" "}
                                     <a href="/register">REGISTER NOW</a>
