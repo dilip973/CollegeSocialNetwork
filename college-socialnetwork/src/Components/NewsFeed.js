@@ -1,8 +1,13 @@
 import React from 'react';
+import Navbar from './Navbar';
+import PostList from './Post/PostList';
 
 const NewsFeed = () => {
   return (
-    <section className="newsfeed-section">
+    <div style={{ width: '100vw', position: 'fixed', top: 0, left: 0, backgroundColor: '#F0F0F0', padding: '10px', borderRadius: '5px', textAlign: 'center' }} className="newsfeed-section">
+    <div>
+    <Navbar/>
+    </div>
       {/* Create post */}
       <div className="create-post">
         <textarea placeholder="What's on your mind?" rows="3"></textarea>
@@ -11,55 +16,10 @@ const NewsFeed = () => {
 
       {/* Posts */}
       <div className="post-list">
-        <div className="post">
-          {/* Post author */}
-          <div className="post-author">
-            <img src="https://via.placeholder.com/50" alt="Profile" />
-            <div className="author-info">
-              <h4>Name</h4>
-              <p>2 hours ago</p>
-            </div>
-          </div>
-
-          {/* Post content */}
-          <div className="post-content">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non magna at quam malesuada dignissim.</p>
-            <img src="https://via.placeholder.com/350x150" alt="Post image" />
-          </div>
-
-          {/* Post actions */}
-          <div className="post-actions">
-            <button>Like</button>
-            <button>Comment</button>
-            <button>Share</button>
-          </div>
-        </div>
-
-        {/* More posts */}
-        <div className="post">
-          {/* Post author */}
-          <div className="post-author">
-            <img src="https://via.placeholder.com/50" alt="Profile" />
-            <div className="author-info">
-              <h4>Name</h4>
-              <p>1 day ago</p>
-            </div>
-          </div>
-
-          {/* Post content */}
-          <div className="post-content">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non magna at quam malesuada dignissim.</p>
-          </div>
-
-          {/* Post actions */}
-          <div className="post-actions">
-            <button>Like</button>
-            <button>Comment</button>
-            <button>Share</button>
-          </div>
-        </div>
+        <PostList />
       </div>
-    </section>
+    </div>
+    
   );
 }
 

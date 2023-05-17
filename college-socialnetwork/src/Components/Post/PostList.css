@@ -1,0 +1,27 @@
+.posts-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .post {
+    background-color: #f5f5f5;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .post-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .post-content {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .post-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+  }
+  

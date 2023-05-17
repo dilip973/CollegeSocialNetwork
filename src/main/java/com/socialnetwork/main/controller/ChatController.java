@@ -1,116 +1,91 @@
 package com.socialnetwork.main.controller;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.socialnetwork.main.model.ApprovedRegistration;
-import com.socialnetwork.main.model.Message;
-import com.socialnetwork.main.repository.ApprovedRegistrationRepository;
-import com.socialnetwork.main.repository.MessageRepository;
+import com.socialnetwork.main.chat.dto.ChatDto;
+import com.socialnetwork.main.model.Chat;
+import com.socialnetwork.main.model.User;
+import com.socialnetwork.main.repository.ChatRepository;
+import com.socialnetwork.main.repository.UserRepository;
 
+@CrossOrigin(origins = {"*"})
+@RestController
+@RequestMapping("/api/chat")
+public class ChatController{
 
-@Controller
-@RequestMapping("/chat")
-public class ChatController {
-    
     @Autowired
-    private ApprovedRegistrationRepository approvedRegistrationRepository;
-    
+    private UserRepository userRepository;
+
     @Autowired
-    private MessageRepository messageRepository;
+    private ChatRepository chatRepository;
 
-    @GetMapping("/messages")
-    public ResponseEntity<?> getMessagesByRecipientId(Long recipientId, HttpSession session) {
-        ApprovedRegistration loggedInUser = (ApprovedRegistration) session.getAttribute("loggedInUser");
-        if (loggedInUser == null) {
-            return ResponseEntity.badRequest().body("You need to login first.");
-        }
-
-        Optional<ApprovedRegistration> recipientOptional = approvedRegistrationRepository.findById(recipientId);
-        if (!recipientOptional.isPresent()) {
-            return ResponseEntity.badRequest().body("Recipient with ID " + recipientId + " does not exist or is not an approved user.");
-        }
-        ApprovedRegistration recipient = recipientOptional.get();
-
-        List<com.socialnetwork.main.model.Message> messages = messageRepository.findByRecipientId(recipient.getId());
-
-        return ResponseEntity.ok(messages);
-    }
     @PostMapping("/send")
-    public ResponseEntity<?> sendMessageToMultiple(@RequestBody MessageRequest messageRequest, HttpSession session) {
-        ApprovedRegistration sender = (ApprovedRegistration) session.getAttribute("loggedInUser");
-        if (sender == null) {
-            return ResponseEntity.badRequest().body("You need to login first.");
+    public ResponseEntity<Object> sendMessage(@RequestBody ChatDto chatDto, HttpSession session) {
+        User currentUser = (User) session.getAttribute("login");
+        if (currentUser == null) {
+            Chat c = new Chat();
+            c.setMessage("User not logged in");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(c);
         }
-
-        List<Long> recipientIds = messageRequest.getRecipientIds();
-        List<ApprovedRegistration> recipients = new ArrayList<>();
-
-        for (Long recipientId : recipientIds) {
-            Optional<ApprovedRegistration> recipientOptional = approvedRegistrationRepository.findById(recipientId);
-            if (!recipientOptional.isPresent()) {
-                return ResponseEntity.badRequest().body("Recipient with ID " + recipientId + " does not exist or is not an approved user.");
-            }
-            ApprovedRegistration recipient = recipientOptional.get();
-            recipients.add(recipient);
-
-            Message message = new Message();
-            message.setSender(sender);
-            message.setRecipient(recipient);
-            message.setContent(messageRequest.getContent());
-            message.setSentAt(LocalDateTime.now());
-
-            messageRepository.save(message);
+        User receiver = userRepository.findById(chatDto.getReceiverId()).orElse(null);
+        if (receiver == null) {
+            Chat c = new Chat();
+            c.setMessage("Invalid receiver ID");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(c);
         }
-
-        StringBuilder recipientsNames = new StringBuilder();
-        for (ApprovedRegistration recipient : recipients) {
-            recipientsNames.append(recipient.getFirstName()).append(", ");
-        }
-        recipientsNames.deleteCharAt(recipientsNames.length() - 2); // remove last comma and space
-
-        return ResponseEntity.ok("Message sent to users " + recipientsNames + " successfully!");
+        Chat chat = new Chat();
+        chat.setSender(currentUser);
+        chat.setReceiver(receiver);
+        chat.setMessage(chatDto.getContent());
+        chat.setTimestamp(LocalDateTime.now());
+        chatRepository.save(chat);
+        return ResponseEntity.ok(chat);
     }
 
-    static class MessageRequest {
-        private Long recipientId;
-        private String content;
-        private List<Long> recipientIds;
-
-        public List<Long> getRecipientIds() {
-            return recipientIds;
+    @GetMapping("/messages/{otherUserId}")
+    public ResponseEntity<Object> getMessages(@PathVariable Long otherUserId, HttpSession session) {
+        User currentUser = (User) session.getAttribute("login");
+        if (currentUser == null) {
+            Chat c = new Chat();
+            c.setMessage("User not logged in");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(c);
         }
-
-        public void setRecipientIds(List<Long> recipientIds) {
-            this.recipientIds = recipientIds;
+        User otherUser = userRepository.findById(otherUserId).orElse(null);
+        if (otherUser == null) {
+            Chat c = new Chat();
+            c.setMessage("Invalid user ID");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(c);
         }
-
-        public Long getRecipientId() {
-            return recipientId;
+        List<Chat> chats = chatRepository.findBySenderAndReceiverOrReceiverAndSenderOrderByTimestampAsc(
+                currentUser, otherUser, otherUser, currentUser);
+        return ResponseEntity.ok(chats);
+    }
+    
+    @GetMapping("/history")
+    public ResponseEntity<Object> getChatHistory(HttpSession session) {
+        User currentUser = (User) session.getAttribute("login");
+        if (currentUser == null) {
+            Chat c = new Chat();
+            c.setMessage("User not logged in");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(c);
         }
-
-        public void setRecipientId(Long recipientId) {
-            this.recipientId = recipientId;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
+        List<Chat> chats = chatRepository.findBySenderOrReceiverOrderByTimestampAsc(currentUser, currentUser);
+        return ResponseEntity.ok(chats);
     }
 }
+
+

@@ -58,7 +58,9 @@ const Registration = () => {
           <div className="logo">
             <section
               className="h-100 gradient-form"
-              style={{ backgroundColor: "#eee" }}
+              style={{
+                backgroundColor: "#eee",
+              }}
             >
               <div className="container py-5 h-100">
                 <div className="row d-flex justify-content-center align-items-center h-100">
@@ -70,75 +72,88 @@ const Registration = () => {
                             <div className="text-center">
                               <h3>
                                 {" "}
-                                COLLEGE{" "}
+                                COLLEGE
                                 <span
                                   style={{
                                     color: "#03A9F4",
                                     fontWeight: "bolder",
                                   }}
                                 >
+                                  {" "}
                                   SOCIAL NETWORK
                                 </span>
                               </h3>
                             </div>
                             &nbsp;
                             <form onSubmit={handleSubmit}>
-                            <div className="form-group d-flex align-items-center">
-                            <span className="far fa-user me-3"></span>
-                              <div>
-                                <label htmlFor="userName">Name:</label>
-                                <input
-                                  type="text"
-                                  id="userName"
-                                  value={userName}
-                                  onChange={handleuserNameChange}
-                                />
+                              <div className="form-group d-flex align-items-center">
+                                <span className="far fa-user me-3"> </span>
+                                <div>
+                                  {/* <label htmlFor="userName"> Name: </label> */}
+                                  <input
+                                    type="text"
+                                    id="userName"
+                                    placeholder="Name"
+                                    value={userName}
+                                    onChange={handleuserNameChange}
+                                  />
                                 </div>
-                              </div>&nbsp;
-                              <div className="form-group d-flex align-items-center">
-                                <span className="far fa-lock me-3"></span>
-                              <div>
-                                <label htmlFor="emailId">Email:</label>
-                                <input
-                                  type="emailId"
-                                  id="emailId"
-                                  value={emailId}
-                                  onChange={handleemailIdChange}
-                                />
                               </div>
-                              </div>&nbsp;
+                              &nbsp;
                               <div className="form-group d-flex align-items-center">
-                                <span className="far fa-lock me-3"></span>
-                              <div>
-                                <label htmlFor="password">Password:</label>
-                                <input
-                                  type="password"
-                                  id="password"
-                                  value={password}
-                                  onChange={handlePasswordChange}
-                                />
+                                <span className="far fa-lock me-3"> </span>
+                                <div>
+                                  {/* <label htmlFor="emailId"> Email: </label> */}
+                                  <input
+                                    type="emailId"
+                                    id="emailId"
+                                    placeholder="emailId"
+                                    value={emailId}
+                                    onChange={handleemailIdChange}
+                                  />
+                                </div>
                               </div>
-                              </div>&nbsp;
+                              &nbsp;
                               <div className="form-group d-flex align-items-center">
-                                <span className="far fa-lock me-3"></span>
-                              <div className="form-group">
-                                <select
-                                  className="form-select"
-                                  name="userrole"
-                                  id="userrole"
-                                  onChange={handleuserRoleChange}
-                                >
-                                  <option value="">UserType</option>
-                                  <option value="STUDENT">STUDENT</option>
-                                  <option value="FACULTY">FACULTY</option>
-                                  <option value="PO">PLACEMENT OFFICER</option>
-                                  <option value="STAFF">STAFF</option>
-                                </select>
+                                <span className="far fa-lock me-3"> </span>
+                                <div>
+                                  {/* <label htmlFor="password"> Password: </label> */}
+                                  <input
+                                    type="password"
+                                    id="password"
+                                    placeholder="password"
+                                    value={password}
+                                    onChange={handlePasswordChange}
+                                  />
+                                </div>
                               </div>
-                              </div><br/>
+                              &nbsp;
+                              <div className="form-group d-flex align-items-center">
+                                <span className="far fa-lock me-3"> </span>
+                                <div className="form-group">
+                                  <select
+                                    className="form-select"
+                                    name="userrole"
+                                    id="userrole"
+                                    onChange={handleuserRoleChange}
+                                  >
+                                    <option value=""> UserType </option>
+                                    <option value="STUDENT"> STUDENT </option>
+                                    <option value="FACULTY"> FACULTY </option>
+                                    <option value="PO">
+                                      PLACEMENT OFFICER
+                                    </option>
+                                    <option value="STAFF"> STAFF </option>
+                                  </select>
+                                </div>
+                              </div>
+                              <br />
                               <button
-                               className="btn btn-primary btn-block gradient-custom-2"
-                                type="submit">Register</button>
+                                className="btn btn-primary btn-block gradient-custom-2"
+                                type="submit"
+                              >
+                                Register
+                              </button>
                             </form>
                           </div>
                         </div>

@@ -31,4 +31,6 @@ public class UserService implements UserDetailsService{
 				(user.getEmailId(),user.getPassword(),list);
 		return springUser;
 	}
+	
+
 }

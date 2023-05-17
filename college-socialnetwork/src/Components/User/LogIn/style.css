@@ -1,4 +1,6 @@
-
+.login_container{
+    background-color: #e52929;
+}
 .gradient-custom-2 {
     /* fallback for old browsers */
     background: #7d29e5;
