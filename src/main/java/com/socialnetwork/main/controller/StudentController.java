@@ -15,7 +15,7 @@ import com.socialnetwork.main.model.NewsFeed;
 import com.socialnetwork.main.repository.ApprovedNewsFeedRepository;
 import com.socialnetwork.main.repository.NewsFeedRepository;
 
-
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*")
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -39,7 +39,7 @@ public class StudentController {
                 newsFeed.setPostedDate(new Date());
                 newsFeed.setStudentId(user.getId());
                 newsFeed.setStudentName(user.getFirstName());
-                //newsFeed.setImageData(image.getBytes());
+                newsFeed.setImageData(image.getBytes());
                 newsFeedRepository.save(newsFeed);
                 return ResponseEntity.ok("Article added successfully.");
             } catch (Exception e) {

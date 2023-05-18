@@ -1,16 +1,14 @@
 package com.socialnetwork.main.controller;
 import java.io.IOException;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,7 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.socialnetwork.main.dto.PostDTO;
 import com.socialnetwork.main.model.Post;
-
 import com.socialnetwork.main.repository.PostRepository;
 import com.socialnetwork.main.repository.UserRepository;
 
@@ -73,7 +70,7 @@ public class PostController {
             post.setTitle(title);
             post.setContent(content);
             post.setImageData(imageData);
-            post.setPostedDate(LocalDateTime.now());
+            post.setPostedDate(new Date());
            // post.setUserName(userName); // Set the username of the authenticated user
 
             

@@ -15,20 +15,6 @@ const Home = () => {
   const postListRef = useRef();
   const interval = 5000; // 5 seconds
 
-  // useEffect(() => {
-  //   const fetchPosts = async () => {
-  //     const response = await axios.get('http://localhost:8080/posts/getall');
-  //     setPosts(response.data);
-  //   };
-  //   fetchPosts();
-
-  //   const intervalId = setInterval(() => {
-  //     fetchPosts();
-  //   }, interval);
-
-  //   return () => clearInterval(intervalId);
-  // }, []);
-
   useEffect(() => {
     postListRef.current.scrollTop = postListRef.current.scrollHeight;
   }, [posts]);
@@ -56,12 +42,12 @@ const Home = () => {
             <div className="chat-section">
               {/* Chat header */}
               <div className="chat-header">
-                <h3>Chat</h3>
-                <button onClick={() => setShowChat(!showChat)}>Start new chat</button>
+                {/* <h3>Chat</h3> */}
+                {/* <button onClick={() => setShowChat(!showChat)}>Start new chat</button> */}
               </div>
 
               {/* Chat list */}
-              {showChat && <Chat />} {/* Render Chat component when showChat is true */}
+              <Chat /> {/* Render Chat component when showChat is true */}
             </div>
           </aside>
 

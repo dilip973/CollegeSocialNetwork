@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +27,7 @@ import com.socialnetwork.main.repository.ApprovedRegistrationRepository;
 import com.socialnetwork.main.repository.FacultyRepository;
 import com.socialnetwork.main.repository.NewsFeedRepository;
 import com.socialnetwork.main.repository.RegisteredTryRepository;
-
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*")
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
@@ -77,7 +78,6 @@ public class AdminController {
                 ApprovedRegistration approvedRegistration = new ApprovedRegistration();
                 approvedRegistration.setFirstName(user.getFirstName());
                 approvedRegistration.setLastName(user.getLastName());
-                approvedRegistration.setAge(user.getAge());
                 approvedRegistration.setUsername(user.getUsername());
                 approvedRegistration.setPassword(user.getPassword());
                 approvedRegistration.setRole(user.getRole());

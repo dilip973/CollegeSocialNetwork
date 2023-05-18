@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import './PostForm.css';
 
 const PostForm = () => {
   const [title, setTitle] = useState("");
@@ -47,17 +48,16 @@ const PostForm = () => {
       <h2>Create a New Post</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="title">Title:</label>
           <input
             id="title"
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             className="form-input"
+            placeholder="Title"
           />
         </div>
         <div className="form-group">
-          {/* <label htmlFor="content">Content:</label> */}
           <textarea
             id="content"
             placeholder="What's on your mind"
@@ -67,16 +67,20 @@ const PostForm = () => {
           ></textarea>
         </div>
         <div className="form-group">
-          <label htmlFor="image">Upload Image:</label>
-          <input
-            id="image"
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            className="form-input"
-          />
+          <label htmlFor="image" className="file-label">
+            <span>Upload Image</span>
+            <input
+              id="image"
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="file-input"
+            />
+          </label>
         </div>
-        <button type="submit" className="submit-btn">Submit</button>
+        <button type="submit" className="submit-btn">
+          Post
+        </button>
       </form>
     </div>
   );

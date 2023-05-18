@@ -7,34 +7,52 @@ import Home from "../../HomePage/Home";
 
 
 const Login = () => {
-  const [emailId, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false); // added state variable
 
   const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+    setUsername(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
 
+  const handleRoleChange = (event) => {
+    setRole(event.target.value);
+  };
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const response = await axios.post("http://localhost:8080/api/user/login", {
-       emailId,
-        password,
-      });
+  username: username,
+  password: password,
+  role: role,
+});
       console.log(response.data);
-      setIsLoggedIn(true); // set isLoggedIn to true on successful login
+      if (response.status === 200) {
+        setIsLoggedIn(true);
+      } else {
+        setErrorMessage("Login failed");
+      }
     } catch (error) {
-      setErrorMessage(error.response.data.msg);
+      if (error.response) {
+        console.log(error.response.data);
+        setErrorMessage(error.response.data.msg);
+      } else {
+        console.log(error);
+        setErrorMessage("An error occurred");
+      }
     }
   };
+  
 
-  // if user is already logged in, redirect to Home component
+  //if user is already logged in, redirect to Home component
   if (isLoggedIn) {
     return <Home />;
   }
@@ -80,7 +98,7 @@ const Login = () => {
                                   name="emailId"
                                   id="emailId"
                                   placeholder="Email address"
-                                  value={emailId}
+                                  value={username}
                                   onChange={handleEmailChange}
                                   required
                                 />
@@ -100,6 +118,24 @@ const Login = () => {
                                 />
                               </div>
                               &nbsp;
+                              <div className="form-group d-flex align-items-center">
+                                <span className="far fa-lock me-3"></span>
+                                <select
+                                    className="form-select"
+                                    name="role"
+                                    id="role"
+                                    onChange={handleRoleChange}
+                                  >
+                                    <option value=""> UserType </option>
+                                    <option value="admin"> ADMIN</option>
+                                    <option value="student"> STUDENT </option>
+                                    <option value="faculty"> FACULTY </option>
+                                    <option value="placementofficer">
+                                      PLACEMENT OFFICER
+                                    </option>
+                                    <option value="STAFF"> STAFF </option>
+                                  </select>
+                              </div>
                               <div className="text-center pt-3">
                                 <button
                                   className="btn btn-primary btn-block gradient-custom-2"
