@@ -1,72 +1,69 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./Chat.css";
+import MessageList from "./ChatBox";
+
 
 const Chat = () => {
-  const [content, setContent] = useState('');
-  const [receiverId, setReceiverId] = useState('');
   const [messages, setMessages] = useState([]);
-  const [loggedInUser, setLoggedInUser] = useState(null);
-
-  // useEffect(() => {
-  //   // Fetch chat history with the other user
-  //   const fetchMessages = async () => {
-  //     try {
-  //       const response = await axios.get(`http://localhost:8080/api/chat/messages/${receiverId}`);
-  //       setMessages(response.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   fetchMessages();
-  // }, [receiverId]);
+  const [recipientId, setRecipientId] = useState("");
+  const [content, setContent] = useState("");
 
   useEffect(() => {
-    // Fetch logged in user
-    const fetchLoggedInUser = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/api/user/login');
-        setLoggedInUser(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchLoggedInUser();
+    fetchMessages();
   }, []);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const fetchMessages = async () => {
     try {
-      const response = await axios.post('http://localhost:8080/api/chat/send', { content, receiverId });
-      const newMessage = response.data;
-      setMessages([...messages, newMessage]);
-      setContent('');
+      const response = await axios.get(
+        `http://localhost:8080/chat/messages`
+      );
+      setMessages(response.data);
     } catch (error) {
-      console.error(error);
+      console.log(error);
+    }
+  };
+
+  const sendMessage = async () => {
+    try {
+      const response = await axios.post("http://localhost:8080/chat/send", {
+        recipientIds: [recipientId],
+        content: content,
+      });
+      console.log(response.data);
+      // Clear input fields and fetch messages again
+      setContent("");
+      fetchMessages();
+    } catch (error) {
+      console.log(error);
     }
   };
 
   return (
     <div className="chat-container">
-      <div className="chat-header">
-        <h1>Chat with User {receiverId}</h1>
+      <h1 className="chat-title">Start a new Chat</h1>
+      <div className="input-container">
+        <label htmlFor="recipientId">Recipient ID:</label>
+        <input
+          type="text"
+          id="recipientId"
+          value={recipientId}
+          onChange={(e) => setRecipientId(e.target.value)}
+        />
       </div>
-      <div className="chat-body">
-        <div className="message-list">
-          {messages.map((message) => (
-            <div key={message.id} className={`message-item ${message.sender.id === loggedInUser.id ? 'sent' : 'received'}`}>
-              <div className="message-sender">{message.sender.id === loggedInUser.id ? 'You' : message.sender.name}</div>
-              <div className="message-content">{message.message}</div>
-            </div>
-          ))}
-        </div>
-        <form onSubmit={handleSubmit}>
-          <div className="message-input">
-            <input type="text" id="receiverId" value={receiverId} onChange={(event) => setReceiverId(event.target.value)} placeholder="Enter User ID" />
-            <textarea id="content" value={content} onChange={(event) => setContent(event.target.value)} placeholder="Enter Message" />
-            <button type="submit">Send</button>
-          </div>
-        </form>
+      <div className="input-container">
+        <label htmlFor="messageContent">Message:</label>
+        <input
+          type="text"
+          id="messageContent"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
       </div>
+      <button className="send-button" onClick={sendMessage}>
+        Send Message
+      </button>
+      <MessageList messages={messages} />
     </div>
   );
 };

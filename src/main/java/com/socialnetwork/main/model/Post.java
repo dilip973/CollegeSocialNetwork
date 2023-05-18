@@ -1,8 +1,7 @@
 package com.socialnetwork.main.model;
-
-
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +25,7 @@ public class Post {
 	 @Column(name = "title")
 	    private String title;
 	 @Column(name = "username")
-	 private String userName;
+	 private String username;
 
 		@Column(name = "content")
 	    private String content;
@@ -36,18 +35,18 @@ public class Post {
 	    private byte[] imageData;
 
 	
-	private LocalDateTime postedDate;
+	private Date postedDate;
 
 	public Post() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Post(long id, String title, String userName, String content, byte[] imageData, LocalDateTime postedDate) {
+	public Post(long id, String title, String username, String content, byte[] imageData, Date postedDate) {
 		super();
 		this.id = id;
 		this.title = title;
-		this.userName = userName;
+		this.username = username;
 		this.content = content;
 		this.imageData = imageData;
 		this.postedDate = postedDate;
@@ -69,12 +68,12 @@ public class Post {
 		this.title = title;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getContent() {
@@ -93,20 +92,83 @@ public class Post {
 		this.imageData = imageData;
 	}
 
-	public LocalDateTime getPostedDate() {
+	public Date getPostedDate() {
 		return postedDate;
 	}
 
-	public void setPostedDate(LocalDateTime postedDate) {
+	public void setPostedDate(Date postedDate) {
 		this.postedDate = postedDate;
 	}
 
 	@Override
 	public String toString() {
-		return "Post [id=" + id + ", title=" + title + ", userName=" + userName + ", content=" + content
+		return "Post [id=" + id + ", title=" + title + ", username=" + username + ", content=" + content
 				+ ", imageData=" + Arrays.toString(imageData) + ", postedDate=" + postedDate + "]";
 	}
 
 	
 
+	
+
 }
+
+//@Entity
+//@Table(name = "posts")
+//public class Post {
+//
+//@Id
+//@GeneratedValue(strategy = GenerationType.IDENTITY)
+//@Column(name = "post_id")
+//private Long id;
+//
+//private String title;
+//
+//private String content;
+//
+//@Column(name = "posted_date")
+//private Date postedDate;
+//
+//@Column(name = "username")
+//private String username;
+//
+//public Long getId() {
+//	return id;
+//}
+//
+//public void setId(Long id) {
+//	this.id = id;
+//}
+//
+//public String getTitle() {
+//	return title;
+//}
+//
+//public void setTitle(String title) {
+//	this.title = title;
+//}
+//
+//public String getContent() {
+//	return content;
+//}
+//
+//public void setContent(String content) {
+//	this.content = content;
+//}
+//
+//public Date getPostedDate() {
+//	return postedDate;
+//}
+//
+//public void setPostedDate(Date postedDate) {
+//	this.postedDate = postedDate;
+//}
+//
+//public String getUsername() {
+//	return username;
+//}
+//
+//public void setUsername(String username) {
+//	this.username = username;
+//}
+//
+//}

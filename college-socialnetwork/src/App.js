@@ -2,11 +2,10 @@ import { BrowserRouter, Switch, Route, Routes } from "react-router-dom";
 import logo from "./logo.svg";
 import "./App.css";
 import Login from "./Components/User/LogIn/Login";
-import SignUp from "./Components/User/SignUp/index";
-import Navbar from "./Components/Navbar";
+import Registration from "./Components/User/SignUp/index";
 import NewsFeed from "./Components/NewsFeed";
-import Registration from "./Components/Registration";
-import AdminDashboard from "./Components/Dashboard/AdminDashboard";
+
+import AdminDashboard from "./Components/Dashboard/Admin/AdminDashboard";
 import PostForm from "./Components/Post/PostForm";
 import Chat from "./Components/Chat/Chat";
 import Home from "./Components/HomePage/Home";

@@ -18,8 +18,6 @@ public class RegisteredTry {
  
     private String lastName;
  
-    private Integer age;
- 
     private String username;
  
     private String password;
@@ -41,12 +39,6 @@ public class RegisteredTry {
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-	public Integer getAge() {
-		return age;
-	}
-	public void setAge(Integer age) {
-		this.age = age;
 	}
 	public String getUsername() {
 		return username;

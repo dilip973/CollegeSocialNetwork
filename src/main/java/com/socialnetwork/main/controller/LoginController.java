@@ -4,6 +4,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,23 +14,28 @@ import org.springframework.web.bind.annotation.RestController;
 import com.socialnetwork.main.model.ApprovedRegistration;
 import com.socialnetwork.main.repository.ApprovedRegistrationRepository;
 
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*")
 @RestController
-@RequestMapping("/login")
+@RequestMapping("api/user")
 public class LoginController {
 
     @Autowired
     private ApprovedRegistrationRepository approvedRegistrationRepository;
 
-    @PostMapping
+    @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody LoginCredentials loginCredentials, HttpSession session) {
         ApprovedRegistration user = approvedRegistrationRepository.findByUsernameAndPasswordAndRole(loginCredentials.getUsername(), loginCredentials.getPassword(), loginCredentials.getRole());
         if (user != null) {
             session.setAttribute("loggedInUser", user);
+            System.out.println("User logged in: " + user.getUsername());
             return ResponseEntity.ok("Login successful!");
         } else {
             return ResponseEntity.badRequest().body("Invalid login credentials.");
         }
     }
+    
+   
+
 
     static class LoginCredentials {
     	 
