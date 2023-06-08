@@ -237,4 +237,52 @@ public class UserController {
 		User user = userRepository.getUserByEmailId(principal.getName());
 		return user;
 	}
+	
+	public void setStudentRepository(StudentRepository studentRepository) {
+		// TODO Auto-generated method stub
+		this.studentRepository = studentRepository;
+		
+	}
+
+	public void setApprovedRegistrationRepository(ApprovedRegistrationRepository approvedRegistrationRepository) {
+		// TODO Auto-generated method stub
+		this.approvedRegistrationRepository=approvedRegistrationRepository;
+		
+	}
+
+	public void setApprovedNewsFeedRepository(ApprovedNewsFeedRepository approvedNewsFeedRepository) {
+		// TODO Auto-generated method stub
+		this.approvedNewsFeedRepository=approvedNewsFeedRepository;
+		
+	}
+
+	public void setEventRepository(EventRepository eventRepository) {
+		// TODO Auto-generated method stub
+		this.eventRepository=eventRepository;
+		
+	}
+
+	public void setFacultyRepository(FacultyRepository facultyRepository) {
+		// TODO Auto-generated method stub
+		this.facultyRepository=facultyRepository;
+		
+	}
+
+	public void setPostRepository(PostRepository postRepository) {
+		// TODO Auto-generated method stub
+		this.postRepository=postRepository;
+		
+	}
+
+	public void setUserRepository(UserRepository userRepository) {
+		// TODO Auto-generated method stub
+		this.userRepository=userRepository;
+		
+	}
+
+	public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+		// TODO Auto-generated method stub
+		this.passwordEncoder=passwordEncoder;
+		
+	}
 }

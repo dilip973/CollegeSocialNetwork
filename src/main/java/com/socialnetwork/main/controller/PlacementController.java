@@ -33,11 +33,18 @@ public class PlacementController {
 
     @Autowired
     private StudentRepository studentRepository;
+    
+    @GetMapping("/allstudents")
+    public List<Student> getAllStudents(){
+                             return studentRepository.findAll();
+              
+    }
 
     @PostMapping
     public ResponseEntity<String> addStudent(@RequestBody StudentDetails studentDetails, HttpSession session) {
         ApprovedRegistration user = (ApprovedRegistration) session.getAttribute("loggedInUser");
-        if (user != null && user.getRole().equals("placement officer")) {
+      //  if (user != null && user.getRole().equals("placement officer")) {
+        if (studentDetails.getPercentage()>0) {
             Student student = new Student();
             student.setId(studentDetails.getId());
             student.setName(studentDetails.getName());
@@ -106,7 +113,7 @@ public class PlacementController {
         }
     }
 
-    static class PostDetails {
+    public static class PostDetails {
         private Long id;
         private String title;
         private String content;
@@ -137,7 +144,7 @@ public class PlacementController {
     }
 
 
-    static class StudentDetails {
+    public static class StudentDetails {
         private int id;
         private String name;
         private String department;

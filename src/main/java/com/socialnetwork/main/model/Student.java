@@ -13,6 +13,21 @@ public class Student {
     private String department;
     private int backlogs;
     private double percentage;
+    public Student() {
+        // Default constructor
+    }
+
+    public Student(String name) {
+        this.name = name;
+    }
+	public Student(int i, String string, String string2, int j, double d) {
+		// TODO Auto-generated constructor stub
+	}
+
+//	public Student(int i, String string, String string2, int j, double d) {
+//		// TODO Auto-generated constructor stub
+//	}
+
 	public int getId() {
 		return id;
 	}

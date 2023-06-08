@@ -23,6 +23,13 @@ public class ApprovedRegistration {
     private String role;
 
     // Getters and setters
+    public ApprovedRegistration() {
+        // Default constructor
+    }
+
+    public ApprovedRegistration(String role) {
+        this.role = role;
+    }
     
     public Long getId() {
         return id;

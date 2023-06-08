@@ -37,7 +37,7 @@ public class LoginController {
    
 
 
-    static class LoginCredentials {
+    public static class LoginCredentials {
     	 
         private String username;
  

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.socialnetwork.main.model.ApprovedNewsFeed;
@@ -70,7 +72,7 @@ public class AdminController {
     }
 
     @PostMapping("/users/{id}/approve")
-    public ResponseEntity<?> approveUser(@PathVariable("id") Long id, HttpSession session) {
+    public ResponseEntity<?> approveUser(@RequestParam("id") Long id, HttpSession session) {
     	ApprovedRegistration admin = (ApprovedRegistration) session.getAttribute("loggedInUser");
         if (admin != null && admin.getRole().equals("admin")) {
             RegisteredTry user = registeredTryRepository.findById(id).orElse(null);
@@ -95,6 +97,7 @@ public class AdminController {
     public ResponseEntity<?> addFaculty(@RequestBody Faculty faculty, HttpSession session) {
     	ApprovedRegistration admin = (ApprovedRegistration) session.getAttribute("loggedInUser");
         if (admin != null && admin.getRole().equals("admin")) {
+    	//if ( ) {
             facultyRepository.save(faculty);
             return ResponseEntity.ok("Faculty " + faculty.getName() + " has been added to the database.");
         } else {

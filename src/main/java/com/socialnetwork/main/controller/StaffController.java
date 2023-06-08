@@ -102,7 +102,7 @@ public class StaffController {
         }
 
 
-    static class EventRequest {
+    public static class EventRequest {
         private String event;
         private LocalDate dateOfEvent;
         private int period;

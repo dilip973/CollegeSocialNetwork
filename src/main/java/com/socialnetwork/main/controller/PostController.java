@@ -58,10 +58,12 @@ public class PostController {
 
         try {
             // Validate the input
-            if (image.isEmpty() || StringUtils.isEmpty(content)) {
+//            if (image.isEmpty() || StringUtils.isEmpty(content)) {
+//                return new ResponseEntity<>("Image and content are required.", HttpStatus.BAD_REQUEST);
+//            }
+        	if (image.isEmpty() || StringUtils.isEmpty(content)) {
                 return new ResponseEntity<>("Image and content are required.", HttpStatus.BAD_REQUEST);
             }
-
             // Get the image data
             byte[] imageData = image.getBytes();
 

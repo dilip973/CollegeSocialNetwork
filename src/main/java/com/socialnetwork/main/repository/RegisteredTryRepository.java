@@ -7,5 +7,5 @@ import com.socialnetwork.main.model.RegisteredTry;
 public interface RegisteredTryRepository extends JpaRepository<RegisteredTry, Long> {
  
     RegisteredTry findByUsernameAndPasswordAndRole(String username, String password, String role);
- 
+ RegisteredTry findByid(Integer id);
 }

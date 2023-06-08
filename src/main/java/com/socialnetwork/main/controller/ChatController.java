@@ -85,7 +85,7 @@ public class ChatController {
         return ResponseEntity.ok("Message sent to users " + recipientsNames + " successfully!");
     }
 
-    static class MessageRequest {
+    public static class MessageRequest {
         private Long recipientId;
         private String content;
         private List<Long> recipientIds;

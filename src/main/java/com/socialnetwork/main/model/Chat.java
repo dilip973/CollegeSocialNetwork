@@ -20,8 +20,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "chats")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
 @Builder
 public class Chat {
 
