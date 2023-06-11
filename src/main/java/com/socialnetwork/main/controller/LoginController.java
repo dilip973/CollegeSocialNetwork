@@ -1,5 +1,7 @@
 package com.socialnetwork.main.controller;
 
+import java.io.Serializable;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ import com.socialnetwork.main.repository.ApprovedRegistrationRepository;
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*")
 @RestController
 @RequestMapping("api/user")
-public class LoginController {
+public class LoginController implements Serializable {
 
     @Autowired
     private ApprovedRegistrationRepository approvedRegistrationRepository;
@@ -26,6 +28,7 @@ public class LoginController {
     public ResponseEntity<String> loginUser(@RequestBody LoginCredentials loginCredentials, HttpSession session) {
         ApprovedRegistration user = approvedRegistrationRepository.findByUsernameAndPasswordAndRole(loginCredentials.getUsername(), loginCredentials.getPassword(), loginCredentials.getRole());
         if (user != null) {
+ 
             session.setAttribute("loggedInUser", user);
             System.out.println("User logged in: " + user.getUsername());
             return ResponseEntity.ok("Login successful!");
